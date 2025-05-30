@@ -2,13 +2,13 @@
 Base URL: https://reviewservice-to9o.onrender.com/api/v1/reviews
 
 🔹 Get All Reviews
-GET /reviews
+GET /reviews/
 
 🔹 Get Review by ID
-GET /reviews/{id}
+GET /reviews/{bookId}
 
 🔹 Delete Review by ID
-DELETE /reviews/{id}
+DELETE /reviews/{bookId}
 
 🔹 Create a Review
 POST /reviews
@@ -24,7 +24,7 @@ Copy code
   "content": "This book was amazing!"
 }
 🔹 Update a Review
-PUT /reviews/{id}
+PUT /reviews/{bookId}
 
 Request Body:
 
