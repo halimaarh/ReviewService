@@ -15,27 +15,30 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    // Get all reviews
     @GetMapping("/")
     public List<Review> getAllReviews() {
         return reviewService.getAllReviews();
     }
 
-    // Get all reviews for a specific book
     @GetMapping("/{bookId}")
     public List<Review> getReviewsByBookId(@PathVariable int bookId) {
         return reviewService.getReviewsByBookId(bookId);
     }
 
-    // Create a new review
     @PostMapping
     public Review createReview(@RequestBody Review review) {
         return reviewService.createReview(review);
     }
 
-    // Delete a review by review ID
-    @DeleteMapping("/{id}")
-    public void deleteReview(@PathVariable String id) {
-        reviewService.deleteReview(id);
+    // Update all reviews for a bookId
+    @PutMapping("/{bookId}")
+    public List<Review> updateReviewsByBookId(@PathVariable int bookId, @RequestBody Review review) {
+        return reviewService.updateReviewsByBookId(bookId, review);
+    }
+
+    // Delete all reviews for a bookId
+    @DeleteMapping("/{bookId}")
+    public void deleteReviewsByBookId(@PathVariable int bookId) {
+        reviewService.deleteReviewsByBookId(bookId);
     }
 }

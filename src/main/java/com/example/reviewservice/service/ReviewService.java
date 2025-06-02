@@ -28,19 +28,28 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    // Update an existing review by ID
-    public Review updateReview(String id, Review reviewDetails) {
-        return reviewRepository.findById(id).map(review -> {
-            review.setBookId(reviewDetails.getBookId());
+    // Update all reviews for a bookId
+    public List<Review> updateReviewsByBookId(int bookId, Review reviewDetails) {
+        List<Review> reviews = reviewRepository.findByBookId(bookId);
+        if (reviews.isEmpty()) {
+            throw new RuntimeException("No reviews found for bookId " + bookId);
+        }
+
+        for (Review review : reviews) {
             review.setAuthor(reviewDetails.getAuthor());
             review.setSubject(reviewDetails.getSubject());
             review.setContent(reviewDetails.getContent());
-            return reviewRepository.save(review);
-        }).orElseThrow(() -> new RuntimeException("Review not found with id " + id));
+        }
+
+        return reviewRepository.saveAll(reviews);
     }
 
-    // Delete a single review by ID
-    public void deleteReview(String id) {
-        reviewRepository.deleteById(id);
+    // Delete all reviews for a specific bookId
+    public void deleteReviewsByBookId(int bookId) {
+        List<Review> reviews = reviewRepository.findByBookId(bookId);
+        if (reviews.isEmpty()) {
+            throw new RuntimeException("No reviews found to delete for bookId " + bookId);
+        }
+        reviewRepository.deleteAll(reviews);
     }
 }
