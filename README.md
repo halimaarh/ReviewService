@@ -1,5 +1,5 @@
 📝 Review Service
-DCUMENTATION LINK
+DOCUMENTATION LINK
 https://documenter.getpostman.com/view/37320664/2sB2qi7coT
 
 Base URL: https://reviewservice-to9o.onrender.com/api/v1/reviews
