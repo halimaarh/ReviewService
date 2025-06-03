@@ -28,28 +28,29 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    // Update all reviews for a bookId
-    public List<Review> updateReviewsByBookId(int bookId, Review reviewDetails) {
-        List<Review> reviews = reviewRepository.findByBookId(bookId);
-        if (reviews.isEmpty()) {
-            throw new RuntimeException("No reviews found for bookId " + bookId);
-        }
-
-        for (Review review : reviews) {
-            review.setAuthor(reviewDetails.getAuthor());
-            review.setSubject(reviewDetails.getSubject());
-            review.setContent(reviewDetails.getContent());
-        }
-
-        return reviewRepository.saveAll(reviews);
+    // ✅ Get review by reviewId
+    public Review getReviewById(String reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found with ID: " + reviewId));
     }
 
-    // Delete all reviews for a specific bookId
-    public void deleteReviewsByBookId(int bookId) {
-        List<Review> reviews = reviewRepository.findByBookId(bookId);
-        if (reviews.isEmpty()) {
-            throw new RuntimeException("No reviews found to delete for bookId " + bookId);
-        }
-        reviewRepository.deleteAll(reviews);
+    // ✅ Update a review by reviewId
+    public Review updateReviewById(String reviewId, Review reviewDetails) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found with ID: " + reviewId));
+
+        review.setAuthor(reviewDetails.getAuthor());
+        review.setSubject(reviewDetails.getSubject());
+        review.setContent(reviewDetails.getContent());
+
+        return reviewRepository.save(review);
+    }
+
+    // ✅ Delete a review by reviewId
+    public void deleteReviewById(String reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found with ID: " + reviewId));
+
+        reviewRepository.delete(review);
     }
 }

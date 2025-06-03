@@ -25,20 +25,26 @@ public class ReviewController {
         return reviewService.getReviewsByBookId(bookId);
     }
 
+    // ✅ Get a single review by reviewId
+    @GetMapping("/review/{reviewId}")
+    public Review getReviewById(@PathVariable String reviewId) {
+        return reviewService.getReviewById(reviewId);
+    }
+
     @PostMapping
     public Review createReview(@RequestBody Review review) {
         return reviewService.createReview(review);
     }
 
-    // Update all reviews for a bookId
-    @PutMapping("/{bookId}")
-    public List<Review> updateReviewsByBookId(@PathVariable int bookId, @RequestBody Review review) {
-        return reviewService.updateReviewsByBookId(bookId, review);
+    // ✅ Update a review by reviewId
+    @PutMapping("/{reviewId}")
+    public Review updateReviewById(@PathVariable String reviewId, @RequestBody Review review) {
+        return reviewService.updateReviewById(reviewId, review);
     }
 
-    // Delete all reviews for a bookId
-    @DeleteMapping("/{bookId}")
-    public void deleteReviewsByBookId(@PathVariable int bookId) {
-        reviewService.deleteReviewsByBookId(bookId);
+    // ✅ Delete a review by reviewId
+    @DeleteMapping("/{reviewId}")
+    public void deleteReviewById(@PathVariable String reviewId) {
+        reviewService.deleteReviewById(reviewId);
     }
 }
