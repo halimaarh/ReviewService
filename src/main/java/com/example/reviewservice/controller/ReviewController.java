@@ -9,7 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/reviews")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://book-store-iota-woad.vercel.app"
+})
 public class ReviewController {
 
     @Autowired
